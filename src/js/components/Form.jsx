@@ -25,18 +25,18 @@ const Form = () => {
 
     return (
         <div className="container">
-            <h1>to-dos</h1>
+            <h1 className="header">todos</h1>
             <div className="paper">
 
 
 
                 <input type="text" placeholder="What needs to be done?" className="form-control" onChange={writeTask} value={task} onKeyDown={add} />
                 <ul className="list-unstyled">
-                    {list.map((item,index)=>(<li key={index}>{item}<span onClick={()=>removeTask(index)}> ✖️</span></li>))}
+                    {list.map((item,index)=>(<li key={index}>{item}<span onClick={()=>removeTask(index)}> X</span></li>))}
                     
                 </ul>
-                <div>
-                    <p> items left</p>
+                <div className="ms-0">
+                    <p> {list.length} items left</p>
                 </div>
 
 

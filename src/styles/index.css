@@ -1,7 +1,18 @@
 body {
-  background-color: beige;
+  background-color: rgba(217, 215, 215, 0.788);
+  font-family: Roboto;
 }
 
+.container {
+  width: 600px;
+  margin:auto;
+}
+
+.header {
+  font-size: 80px;
+  color:rgba(128, 128, 128, 0.401);
+  text-align: center;
+}
 
 .paper {
   background: #fff;
@@ -21,5 +32,8 @@ body {
     
 }
 
+.list-unstyled{
+  font-weight: 500;
+}
 
 
