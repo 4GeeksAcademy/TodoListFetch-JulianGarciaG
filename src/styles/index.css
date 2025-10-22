@@ -5,36 +5,36 @@ body {
 
 .container {
   width: 400px;
-  margin:auto;
-  
+  margin: auto;
+
 }
 
 .header {
   font-size: 80px;
-  color:rgba(128, 128, 128, 0.401);
+  color: rgba(128, 128, 128, 0.401);
   text-align: center;
-  
+
 }
 
 .paper {
-  height:min-content;
+  height: min-content;
   background: #fff;
   box-shadow:
     /* The top layer shadow */
-    0 1px 1px rgba(0,0,0,0.15),
+    0 1px 1px rgba(0, 0, 0, 0.15),
     /* The second layer */
     0 10px 0 -5px #eee,
     /* The second layer shadow */
-    0 10px 1px -4px rgba(0,0,0,0.15),
-     /* The third layer */
+    0 10px 1px -4px rgba(0, 0, 0, 0.15),
+    /* The third layer */
     0 20px 0 -10px #eee,
     /* The third layer shadow */
-    0 20px 1px -9px rgba(0,0,0,0.15);
-    /* Padding for demo purposes */ 
-    
+    0 20px 1px -9px rgba(0, 0, 0, 0.15);
+  /* Padding for demo purposes */
+
 }
 
-.form-control{
+.form-control {
   border: none;
   border-bottom: 1px solid rgba(192, 191, 191, 0.637);
   padding: 10px 10px 5px 25px;
@@ -47,34 +47,32 @@ body {
   border-color: rgb(163, 163, 163);
 }
 
-li{
+li {
   padding: 2px 2px 2px 25px;
-  border-bottom:solid rgba(192, 191, 191, 0.637);
-  border-width: thin; 
+  border-bottom: solid rgba(192, 191, 191, 0.637);
+  border-width: thin;
 }
 
 .ms-0 {
   font-size: 8px;
   border-top: solid rgba(192, 191, 191, 0.637);
-  border-width: thin; 
+  border-width: thin;
   padding: 3px 3px 3px 5px;
   color: rgb(90, 90, 90);
 
 }
 
-p{ margin: 0;
-
+p {
+  margin: 0;
 }
 
 .delete {
   float: inline-end;
   display: none;
+  padding: 3px;
+  line-height: 19px;
 }
 
-li:hover.delete {
+li:hover span.delete {
   display: block;
 }
-
-
-
-
