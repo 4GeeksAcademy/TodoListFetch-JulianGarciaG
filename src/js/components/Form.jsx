@@ -32,10 +32,10 @@ const Form = () => {
 
                 <input type="text" placeholder="What needs to be done?" className="form-control" onChange={writeTask} value={task} onKeyDown={add} />
                 <ul className="list-unstyled">
-                    {list.map((item,index)=>(<li key={index}>{item}<span onClick={()=>removeTask(index)}> X</span></li>))}
+                    {list.map((item,index)=>(<li key={index}>{item}<span className="delete" onClick={()=>removeTask(index)}> X</span></li>))}
                     
                 </ul>
-                <div className="ms-0">
+                <div className="ms-0 container-fluid">
                     <p> {list.length} items left</p>
                 </div>
 
