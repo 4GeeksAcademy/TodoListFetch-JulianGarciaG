@@ -6,10 +6,10 @@ const Form = () => {
     let [list, setList] = useState([])
 
 
-     const createUser = () => {
+    const createUser = () => {
         const API_URL = 'https://playground.4geeks.com/todo/'
 
-        fetch(API_URL + "users/alexis", {
+        fetch(API_URL + "users/Julian", {
             method: "POST",
             header: {
                 "Content-Type": "application/json"
@@ -21,10 +21,10 @@ const Form = () => {
 
     }
 
-     const showTask = () => {
+    const showTask = () => {
         const API_URL = 'https://playground.4geeks.com/todo/'
 
-        fetch(API_URL + "users/alexis")
+        fetch(API_URL + "users/Julian")
 
             .then((response) => {
 
@@ -35,7 +35,7 @@ const Form = () => {
 
                 // console.log(response)
                 return response.json()
-            }) 
+            })
 
             .then((data) => setList(data.todos))  // toma los datos para mostrar en la consola
             .catch(error => { console.log('Hubo un problema al obtener las tareas: \n', error) }) //imprimir el error en la consola para depurar
@@ -43,10 +43,10 @@ const Form = () => {
     }
 
 
-    const createTask = () => {
-         
-        const API_URL = 'https://playground.4geeks.com/todo/'
-            fetch(API_URL + "users/alexis") {
+    const createTask = async (text) => {
+        try {
+            
+            const response = await fetch(API_URL + "todos/Julian", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -63,31 +63,46 @@ const Form = () => {
 
             const data= await response.json()
             console.log("tarea creada con exito:", data);
-            await traerLista()
+            showTask()
 
 
-     useEffect(() => {
-        // crearUsuario()
-        showTask()
-    }, [])
-
-
-    const writeTask = (event) => {
-        setTask(event.target.value)
-
-    }
-
-    const add = (event) => {
-
-        if (event.key === "Enter") {
-            setList([...list, task])
-            setTask("")
+        } catch (error) {
+                console.error('hubo un problema al crear la tarea:', error)
         }
 
     }
 
-    const removeTask = (position) =>{
-        setList (list.filter((item, index)=> index!== position))
+    const inputText = (event) => {
+        if (event.key === "Enter") {
+            writeTask(task)
+            setTask("")
+        }
+    }
+
+
+
+    useEffect(() => {
+        showTask()
+    }, [])
+
+
+    // const writeTask = (event) => {
+    //     setTask(event.target.value)
+
+
+    // }
+
+    // const add = (event) => {
+
+    //     if (event.key === "Enter") {
+    //         setList([...list, task])
+    //         setTask("")
+    //     }
+
+    // }
+
+    const removeTask = (position) => {
+        setList(list.filter((item, index) => index !== position))
     }
 
     return (
@@ -97,9 +112,9 @@ const Form = () => {
 
 
 
-                <input type="text" placeholder="What needs to be done?" className="form-control" onChange={writeTask} value={task} onKeyDown={add} />
+                <input type="text" placeholder="What needs to be done?" className="form-control" onChange={createTask} value={task} onKeyDown={inputText} />
                 <ul className="list-unstyled">
-                    {list.map((item)=>(<li key={item.id}>{item.label}<span className="delete" onClick={()=>removeTask(item.id)}> X</span></li>))}
+                    {list.map((item) => (<li key={item.id}>{item.label}<span className="delete" onClick={() => removeTask(item.id)}> X</span></li>))}
                 </ul>
                 <div className="ms-0 container-fluid">
                     <p> {list.length} items left</p>
