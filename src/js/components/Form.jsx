@@ -14,9 +14,9 @@ const Form = () => {
                 "Content-Type": "application/json"
             },
         })
-            .then(response => response.json())  //convierte la respuesta a un formato JSON
-            .then((data) => console.log(data))  // toma los datos para mostrar en la consola
-            .catch(error => { console.log('Hubo un problema al obtener las tareas: \n', error) }) //imprimir el error en la consola para depurar
+            .then(response => response.json())
+            .then((data) => console.log(data))
+            .catch(error => { console.log('Hubo un problema al crear el usuario: \n', error) })
 
     }
 
@@ -24,7 +24,6 @@ const Form = () => {
 
 
         fetch(API_URL + "users/Julian")
-
             .then((response) => {
 
                 if (response.status === 404) {
@@ -32,12 +31,13 @@ const Form = () => {
                 }
 
 
-                // console.log(response)
+                console.log(response)
                 return response.json()
             })
 
-            .then((data) => setList(data.todos))  // toma los datos para mostrar en la consola
-            .catch(error => { console.log('Hubo un problema al obtener las tareas: \n', error) }) //imprimir el error en la consola para depurar
+            .then((data) => setList(data.todos))
+            .then((data) => console.log(data.todos))
+            .catch(error => { console.log('Hubo un problema al obtener las tareas: \n', error) })
 
     }
 
@@ -59,7 +59,6 @@ const Form = () => {
             if (!response.ok) {
                 throw new Error(`Error ${response.status}: No se pudo crear la tarea.`);
             }
-
             const data = await response.json()
             console.log("tarea creada con exito:", data);
             showTask()
@@ -68,28 +67,6 @@ const Form = () => {
         } catch (error) {
             console.error('hubo un problema al crear la tarea:', error)
         }
-
-    }
-
-    const deleteTask = (id) => {
-        fetch(API_URL + "users/Julian", {
-            method: "DELETE",
-            header: {
-                "Content-Type": "application/json"
-            },
-
-        })
-            .then((response) => response.json())
-
-            .then((data => {
-                if (data) {
-                    setList(list.filter((task) => task.id !== id));
-                    console.log("tarea borrada con exito:", data);
-                }
-            }))
-            .catch(error => {
-                console.error('Hubo un problema:', error);
-            })
 
     }
 
@@ -107,25 +84,27 @@ const Form = () => {
         showTask()
     }, [])
 
+    const deleteTask = async () => {
+        try {
+            const response = await fetch(API_URL + "todos/Julian", {
+                method: "DELETE",
+            });
 
-    // const writeTask = (event) => {
-    //     setTask(event.target.value)
+            if (response.ok) {
+                const data = await response.json();
+                showTask();
+                return data;
 
 
-    // }
+            }
+            else {
+                console.log('error: ', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error("Error de red:", error);
+        }
+    };
 
-    // const add = (event) => {
-
-    //     if (event.key === "Enter") {
-    //         setList([...list, task])
-    //         setTask("")
-    //     }
-
-    // }
-
-    const removeTask = (position) => {
-        setList(list.filter((item, index) => index !== position))
-    }
 
     return (
         <div className="container">
@@ -136,7 +115,7 @@ const Form = () => {
 
                 <input type="text" placeholder="What needs to be done?" className="form-control" onChange={(e) => setTask(e.target.value)} value={task} onKeyDown={inputText} />
                 <ul className="list-unstyled">
-                    {list.map((item) => (<li key={item.id}>{item.label}<span className="delete" onClick={() => deleteTask(item.id)}> X</span></li>))}
+                    {list.map((item) => (<li key={item.id}>{item.label}<span className="delete" onClick={() => deleteTask()}> X</span></li>))}
                 </ul>
                 <div className="ms-0 container-fluid">
                     <p> {list.length} items left</p>
