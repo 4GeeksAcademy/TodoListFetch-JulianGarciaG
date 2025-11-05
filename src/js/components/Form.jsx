@@ -119,7 +119,7 @@ const Form = () => {
 
                 <input type="text" placeholder="What needs to be done?" className="form-control" onChange={(e) => setTask(e.target.value)} value={task} onKeyDown={inputText} />
                 <ul className="list-unstyled">
-                    {list.map((item) => (<li key={item.id}>{item.label}<span className="delete" onClick={() => deleteTask(item.id)}> X</span></li>))}
+                    {list.map((item) => (<li key={item.id}>{item.label}<span className="delete" role="button" onClick={() => deleteTask(item.id)}> X</span></li>))}
                 </ul>
                 <div className="ms-0 container-fluid">
                     <p> {list.length} items left</p>
