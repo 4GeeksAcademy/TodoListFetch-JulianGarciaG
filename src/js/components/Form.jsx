@@ -35,8 +35,12 @@ const Form = () => {
                 return response.json()
             })
 
-            .then((data) => setList(data.todos))
-            .then((data) => console.log(data.todos))
+            .then((data => {
+                console.log(data)
+                console.log(data.todos);
+                setList(data.todos)
+
+            }))
             .catch(error => { console.log('Hubo un problema al obtener las tareas: \n', error) })
 
     }
@@ -84,22 +88,22 @@ const Form = () => {
         showTask()
     }, [])
 
-    const deleteTask = async () => {
+    const deleteTask = async (id) => {
         try {
-            const response = await fetch(API_URL + "todos/Julian", {
+            const response = await fetch(API_URL + "todos/" + id, {
                 method: "DELETE",
             });
 
             if (response.ok) {
-                const data = await response.json();
+
                 showTask();
-                return data;
 
 
             }
-            else {
-                console.log('error: ', response.status, response.statusText);
-            }
+            console.log(response.status);
+            
+            
+
         } catch (error) {
             console.error("Error de red:", error);
         }
@@ -115,7 +119,7 @@ const Form = () => {
 
                 <input type="text" placeholder="What needs to be done?" className="form-control" onChange={(e) => setTask(e.target.value)} value={task} onKeyDown={inputText} />
                 <ul className="list-unstyled">
-                    {list.map((item) => (<li key={item.id}>{item.label}<span className="delete" onClick={() => deleteTask()}> X</span></li>))}
+                    {list.map((item) => (<li key={item.id}>{item.label}<span className="delete" onClick={() => deleteTask(item.id)}> X</span></li>))}
                 </ul>
                 <div className="ms-0 container-fluid">
                     <p> {list.length} items left</p>
